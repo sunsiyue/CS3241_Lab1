@@ -16,9 +16,56 @@ float alpha = 0.0, k=1;
 float tx = 0.0, ty=0.0;
 
 
+void drawATriangle(void) {
+    glBegin(GL_POLYGON);
+        //glColor3f(1.0,0.0,0.0);
+        glVertex2f(-1, -1);
+        //glColor3f(0.0,1.0,0.0);
+        glVertex2f(0, 1);
+        //glColor3f(0.0,0.0,1.0);
+        glVertex2f(1, -1);
+    glEnd();
+}
+
+void drawAnotherTriangle(void) {
+    glBegin(GL_POLYGON);
+    //glColor3f(1.0,0.0,0.0);
+    glVertex2f(1, -1);
+    //glColor3f(0.0,1.0,0.0);
+    glVertex2f(2, 1);
+    //glColor3f(0.0,0.0,1.0);
+    glVertex2f(3, -1);
+    glEnd();
+}
+
+void drawLine(void) {
+    glBegin(GL_LINE);
+    glVertex2f(3, 3);
+    glVertex2f(3, -3);
+    glEnd();
+}
+
+
+
+void drawFork()
+{
+
+drawLine();
+glPushMatrix();
+glTranslatef(0,0.5,0);
+glPushMatrix();
+glRotatef(-45,0,0,1);
+drawLine();
+glPopMatrix();
+
+glPushMatrix();
+glPopMatrix();
+glPopMatrix();
+}
+
 void display(void)
 {
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
     
@@ -26,22 +73,25 @@ void display(void)
     
 	//controls transformation
 	glScalef(k, k, k);	
-	glTranslatef(tx, ty, 0);	
+		
 	glRotatef(alpha, 0, 0, 1);
-	
+	glTranslatef(tx, ty, 0);
 	//draw your stuff here
-    glBegin(GL_POLYGON);
-    glColor3f(1.0,0.0,0.0);
-    glVertex2f(-0.5, -0.5);
-    glColor3f(0.0,1.0,0.0);
-    glVertex2f(0, 0.5);
-    glColor3f(0.0,0.0,1.0);
-    glVertex2f(0.5, -0.5);
-    glEnd();
+    drawATriangle();
+    glTranslatef(4,0,0);
+    glScalef(2.0f, 2.0f, 0);
+    
+    drawATriangle();
+    
+    drawFork();
     
 	glPopMatrix();
 	glFlush ();
 }
+
+
+
+
 
 void reshape (int w, int h)
 {
